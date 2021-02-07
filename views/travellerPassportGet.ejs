@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Traveller</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+    
+    <div id="trvlrPassport" class="py-3">
+          <div class="col-md-10 mb-10 border rounded">
+                  <h2 class="py-3">Traveller Passport Details</h2>
+                  <br>               
+                
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="tbxPassportNo">Passport No</label>
+                                <input type="text" readonly class="form-control" value="<%=passportNo%>"/>                                
+                            </div>
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="tbxPlaceOfBirth">Birth Place</label>
+                                <input readonly type="text" class="form-control" value="<%=placeofBirth%>"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="tbxValidityFrom">Passport Validity From</label>
+                                <input type="text" readonly class="form-control" value="<%=passportValidatyFrom%>"/>
+                             </div>
+        
+                            <div class="form-group col-md-6 mb-6">
+                                <label  for="tbxValidityTo">Passport Validity To</label>
+                                <input type="text" class="form-control" readonly value="<%=passportValidatyTo%>"/>
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="selectNationality">Nationality</label>
+                                <input type="text" class="form-control" readonly value="<%=nationality%>"/>
+                            </div>
+                             <div class="form-group col-md-6 mb-6">
+                                <label for="tbxAuthority">Issuing Authority</label>
+                                <input type="text" class="form-control" readonly value="<%=issuingAuthority%>" />
+                             </div>
+                        </div>
+                              
+                       <%if(typeof passportCopy!='undefined'){%>
+                        <div class="row">
+                            <div class="form-group"> 
+                                <label for="uploadPassport">Please click on the below link</label><br>                             
+                                <a  href="https://ipfs.io/ipfs/<%=passportCopy%>"  target="_blank" ><%=passportCopy%></a>   
+                            </div>  
+                         </div>
+                        <%}%>
+                        <div class="row mb-4">
+                            <div class="col-md-10 mb-10 text-right">
+                                                               <a href="/airportAuth/airportAuthorityDetails" class="btn btn-primary" title="Click on the back button">Back</a>
+                            </div> 
+                        </div> 
+                     
+            </div> 
+    </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+    <script type="text/javascript" src="javascripts/travellerCS.js"></script>
+        </body>
+  </html>

@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <title>History Details</title>
+        <!-- Bootstrap core CSS -->        
+          
+        <%- include('./partials/headscripts.ejs')%>  
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="covidResultsDetails" class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded py-2">
+                       <h2 class="py-3">Covid Test Lab</h2>                                         
+                       <form method="POST" action="addCovidTestLabDetails" enctype="multipart/form-data">                                                     
+                        <div class="row">
+                            <div class="form-check col-md-12 mb-2">
+                                <div class="mb-2">  
+                                    <label class="form-check-label">COVID Test Required</label>
+                               </div>
+                                <select required class="form-select form-control" name="rdbtnCovidTestReqd" id="rdbtnCovidTestReqd">                                    
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                </select>                             
+                           </div> 
+                        </div>
+                        <div id="rowCovid" class="row mb-4">
+                                    <div class="form-group col-md-6">      
+                                        <div class="mb-2">                                      
+                                                <label class="form-check-label">Covid Test Type</label>
+                                        </div>
+                                                <select class="form-select form-control" name="selectCovidTestType">                                    
+                                                    <option selected>Please Select</option>
+                                                    <option value="PCR_Test">RT PCR Test</option>
+                                                    <option value="LAMP_Test">LAMP Test</option>
+                                                    <option value="Antigen_Tests">Antigen Tests</option> 
+                                                    <option value="Antibody_Tests">Antibody Tests</option>                                    
+                                                </select>                                                                     
+                                    </div>
+                                    <div class="form-check col-md-6">
+                                        <div class="mb-2"> 
+                                            <label for="tbxCovidTestDate">Covid Test Date</label>
+                                        </div>
+                                            <input type="date" class="form-control" name="tbxCovidTestDate"> 
+                                    </div>
+                        </div>
+                        <div id="rowLab" class="row">                          
+                            <div class="form-group col-md-6 mb-6">         
+                                <div class="mb-2">                        
+                                    <label for="txtLabName">Lab Name</label> 
+                                </div>   
+                                    <input type="text" class="form-control" name="txtLabName" placeholder="Please provide your lab name." />                                                             
+                            </div>   
+                            <div class="form-group col-md-6 mb-6">
+                                <div class="mb-2"> 
+                                    <label for="txtLabAddress">Lab Address</label>
+                                </div>  
+                                <textarea class="form-control" name="txtLabAddress" placeholder="Please provide your lab address." rows="3"></textarea>  
+                            </div>
+                        </div>
+                           
+                        <div class="row mb-2"> 
+                              <div class="form-group col-md-12 mb-6">
+                                <div class="mb-2"> 
+                                    <label for="txtCovidTestOutcome">COVID Test Outcome</label>
+                                </div>
+                                <textarea class="form-control" name="txtCovidTestOutcome" placeholder="Please provide your covid test outcome" rows="3"></textarea>
+                            </div>
+                        </div>
+                                    
+                                     <div id="rowUploadCovidReport" class="row mb-6">
+                                            <div class="form-group col-md-10">
+                                                <label for="uploadCovidReport">Please Upload Covid Report</label>
+                                                <input type="file" class="form-control-file" name="uploadCovidReport">    
+                                            </div>
+                                    </div> 
+                                    <div class="row mb-2">                            
+                                        <div class="form-group col-md-12 mb-2">
+                                            <label for="txtTravellerId">Traveller Identity(Account Address)</label>
+                                            <input type="text" class="form-control" name="txtTravellerId" placeholder="Please input traveller address">
+                                         </div>  
+                                        </div> 
+                                        <div class="row mb-2">               
+                                        <div class="form-group col-md-12 mb-2">
+                                            <label for="txtCovidTestId">Please provide Covid Test Count for which detail(s) is applicable</label>
+                                            <input type="number" class="form-control" name="txtCovidTestId" min="0" max="1">
+                                        </div>                              
+                                   </div> 
+                                   <div class="row mb-4">
+                                    <div class="col-md-5 mb-10 text-left">
+                                        <a href="./hospitalizationDetails" class="btn btn-primary"  title="Please click on back button">Back</a>
+                                        </div>
+                                    <div class="col-md-5 mb-10 text-right">
+                                        <button type="submit" class="btn btn-primary"  id="btnSubmitBasic">Submit</button> 
+                                    </div>           
+                                </div>                                      
+                            </div>
+                           
+
+                        </div>   
+                                          
+                       
+                               
+                       </form>            
+            </div> 
+       </div>
+    </div>
+    <script>
+ 
+        $(document).ready(function(){
+        $('#rdbtnCovidTestReqd').change(function(){
+    
+              var selectedValue = $(this).find("option:selected").val(); //rowUploadCovidReport
+              //alert(selectedValue);
+              if(selectedValue=="-1") 
+              {
+                   // alert("Please select valid input");
+                    return false;
+                }
+          
+                var selectDisabled= (selectedValue=="1")?true:false;
+            
+               document.getElementById("rowLab").style.display=(selectDisabled)?'flex':'none';
+               document.getElementById("rowCovid").style.display=(selectDisabled)?'flex':'none';
+               //document.getElementById("rowUploadCovidReport").style.display=(selectDisabled)?'inline-flex':'none';
+              
+          }        
+          );
+          
+    });
+   
+    </script>>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>

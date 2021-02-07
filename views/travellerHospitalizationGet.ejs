@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>History Details</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="trvlrHospitalization" class="tabcontent py-3" style="display: block;">
+             
+            <div class="col-md-10 mb-10 border rounded py-4">
+                <%if(hospitalization=="1") {%>    
+                                                                                                         
+                        <div class="row">
+                            <div class="form-check col-md-6 mb-6">
+                                <div class="my-2">  
+                                    <label class="form-check-label">Have you been hospitalized due to COVID?</label>
+                               </div>
+                               <label class="form-check-label mx-5"><%=hospitalizedduetoCOVID%></label>
+                           </div>  
+                           <div class="form-group col-md-6 mb-6">
+                            <label for="txtHospitalName">Name of Hospital</label>
+                            <input type="text" class="form-control" name="txtHospitalName" readonly value="<%=hospitalName%>"/>
+                            </div>                         
+                        </div>                      
+                        <div class="row">
+                        <div class="form-group col-md-6 mb-6">
+                            <label for="tbxHospitalizedFrom">Hospitalised From</label>
+                            <input type="date" class="form-control" name="tbxHospitalizedFrom" readonly  value="<%=fromDate%>">
+                         </div>    
+                        <div class="form-group col-md-6 mb-6">
+                            <label for="tbxHospitalizedTo">Hospitalised To</label>
+                            <input type="date" class="form-control" name="tbxHospitalizedTo" readonly  value="<%=toDate%>">
+                        </div>
+                        </div>            
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtAddress">Hospital Address</label>
+                                <label class="form-check-label mx-5"><%=hospitalAddress%></label>
+                               
+                            </div>
+                        </div>
+                    <%} else if(hospitalization=="2") {%>
+                      <div class="row">                       
+                        <h2 class="py-3">Hospitalization Remarks</h2>
+                       <br>  
+                       </div>
+                       <div class="row">
+                         <div class="form-group col-md-6 mb-6">
+                            <label for="txtDiagnostics">Diagnostics Tests Performed</label>  
+                            <label class="form-check-label mx-5"><%=diagnosticsTestsPerformed%></label>
+                         </div>
+                      </div> 
+                    
+                      <%if(typeof dischargeSummary!='undefined'){%>
+                            <div class="row">     
+                                    <div class="form-group col-md-6 mb-6">
+                                        <label>Please Click on below link to See Discharge Summary</label><br>                                         
+                                        <a  href="https://ipfs.io/ipfs/<%=dischargeSummary%>"  target="_blank"><%=dischargeSummary%></a>                               
+                                </div>
+                                </div>
+                        <%} %>
+                            <div class="row">
+                                <div class="form-group col-md-6 mb-6">
+                                    <label for="txtKeyObservations">Key Observations(Patient)</label>                                    
+                                    <label class="form-check-label mx-5"><%=keyObservations%></label>
+                               </div>
+                            </div> 
+                          <div class="row">     
+                              <div class="form-group col-md-8 mb-8">                        
+                              <label for="txtHospitalRemarks">Hospital Remarks</label>                           
+                              <label class="form-check-label mx-5"><%=remarks%></label>
+                          </div>
+                          </div> 
+                   <%} %>
+                           <div class="row mb-4">
+                           <div class="col-md-5 mb-5 text-left">
+                               <a href="/airportAuth/airportAuthorityDetails" class="btn btn-primary" title="Click on the back button">Back</a>
+                               <!-- <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Back</button>  -->
+                            </div>    
+                            <%if(typeof travellerId!='undefined' && typeof travellerHistoryId!='undefined'){%>
+                            <div class="col-md-5 mb-5 text-right">
+                                    <a href="/airportAuth/airportAuthorityDetails/<%=travellerId%>/<%=travellerHistoryId%>/2"  class="btn btn-primary" title="Click on the back button">Next</a>
+                            </div> 
+                            <%} %>                              
+                            </div>         
+                        
+            </div> 
+       </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>

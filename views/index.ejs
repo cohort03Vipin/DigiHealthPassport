@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style1.css' />
+  </head>
+  <body>
+    <%- include('./partials/nav.ejs')%>
+    <%- include('./partials/header.ejs')%>
+   <!-- Page Content -->
+   <div class="container"> 
+   
+     <div class="row">
+       <div class="col-md-4 mb-4">
+         <div class="card h-60"> 
+           <img class="card-img-top" src="images/icons/traveller.jpg" alt="Traveller Details">
+           <div class="card-body">
+             <h4 class="card-title">Traveller Details</h4>
+             <p class="card-text justify-content-md-center">Travellers and tourism is the largest service industry in World. It provides heritage, cultural, medical, business and sports tourism. The main objective of this module is to capture the details of the traveller</p>
+           </div>
+           <div class="card-footer">
+             <a href="traveller/travellerModule" class="btn btn-primary">Click Here!</a>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-4 mb-4">
+         <div class="card h-60">
+            <img class="card-img-top" src="images/icons/Airport_auth.png" alt="Airport Authority">
+           <div class="card-body">
+             <h4 class="card-title">Airport Authority</h4>
+             <p class="card-text justify-content-md-center">An airport authority is an independent entity and oversight of an airport or group of airports. These authorities are often governed by a group of airport commissioners, who are appointed to lead the authority by a government official</p>
+           </div>
+           <div class="card-footer">
+             <a href="airportAuth/airportAuthorityDetails"" class="btn btn-primary">Click Here!</a>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-4 mb-4">
+         <div class="card h-60">
+            <img class="card-img-top" src="images/icons/Laboratories.jpg" alt="Laboratory">
+           <div class="card-body">
+             <h4 class="card-title">Healthcare</h4>
+             <p class="card-text justify-content-md-center">Health care is improvement of health via the prevention, diagnosis, treatment, recovery, or cure of Covid and other challengs during vaccination. Health care is delivered by health professionals.</p>  
+           </div>
+           <div class="card-footer">
+             <a href="healthcare/hospitalizationDetails" class="btn btn-primary">Click Here!</a>
+           </div>
+         </div>
+       </div>
+     </div>
+     <!-- /.row -->
+ 
+   </div>
+   <!-- /.container -->
+ <!-- Bootstrap core JavaScript -->
+ <script src="vendor/jquery/jquery.min.js"></script>
+ <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <%- include('./partials/footer.ejs')%>
+</body>
+</html>   

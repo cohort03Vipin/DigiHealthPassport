@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <title>Traveller</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>  
+      
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="trvlrBasic" class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded">
+                       <h2 class="py-3 mb-3">Airport Authority Form</h2>
+                       <br>
+                       <form method="POST" action="addAirportAuthorityDetails"> 
+                              <div class="row py-1">
+                                <div class="form-check col-md-10 mb-10">                                    
+                                    <div class="my-4">  
+                                        <label class="form-check-label">What travel information you want to fetch?</label>
+                                   </div>
+
+                                   <select required class="form-select form-control" name="rdbtnSelectInfo" id="rdbtnSelectInfo">                                    
+                                            <option value="-1" selected>Please Select</option>
+                                            <option>------------TRAVELLER DETAILS-----------------</option>
+                                            <option value="1">Basic Details</option>
+                                            <option value="4">Address Details</option>
+                                            <option value="2">Passport Details</option>
+                                            <option value="3">History Details</option>
+                                            <option value="5">Quaratine Details</option>
+                                          
+                                            <option>------------COVID DETAILS--------------------</option>
+                                            <option value="8">Covid Details By Labs</option>
+                                            <option>------------VACCINATION----------------------</option>
+                                            <option value="9">Vaccine Information</option>
+                                </select>
+                               </div> 
+                            </div>
+
+                           
+                           <div class="row py-3">                                                      
+                                <div class="form-group col-md-10 mb-10">
+                                    <label for="txtTravellerId">Traveller Identity(Account Address)</label>
+                                    <input required type="text" class="form-control" name="txtTravellerId" placeholder="Please input traveller address">
+                                 </div>
+                                 </div>
+                                 <div class="row"  id ="travellerHistoryId">             
+                                <div class="form-group col-md-10 mb-10">
+                                    <label id="lblTravellerHistoryIdPK" for="txtTravellerHistoryIdPK"></label>
+                                    <input type="text" class="form-control" id="txtTravellerHistoryIdPK" name="txtTravellerHistoryIdPK">
+                                </div>                              
+                           </div>                          
+                           <div class="row py-3">
+                            <div class="col-md-4 mb-10 text-left">
+                                <a href="/" class="btn btn-primary"  title="Please click on back button">Back</a>
+                            </div>
+                            <div class="col-md-4 mb-10 text-left">
+                              <a href="/airportAuth/getAllTravellers" class="btn btn-primary"  title="Please click on back button">Get All Travellers</a>
+                          </div>
+                           <div class="col-md-4 mb-5 text-right">
+                               <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Submit</button> 
+                           </div>                               
+                       </div>         
+                       </form>            
+            </div> 
+       </div>
+    </div>
+<script>
+    
+    document.getElementById("travellerHistoryId").style.display='none'; 
+    $(document).ready(function(){
+	$('#rdbtnSelectInfo').change(function(){
+
+          var selectedValue = $(this).find("option:selected").val();
+          if(selectedValue=="1" || selectedValue=="2"|| selectedValue=="4"){
+            document.getElementById("travellerHistoryId").val= '';
+            document.getElementById("travellerHistoryId").style.display= 'none';
+          }
+          
+          else if(selectedValue=="3" || selectedValue=="5"){
+            document.getElementById("travellerHistoryId").style.display= 'block';
+            document.getElementById("lblTravellerHistoryIdPK").innerHTML="Please provide Travelled Iteration Count for which details is applicable";
+          }
+          else if(selectedValue=="6" || selectedValue=="7"){
+            document.getElementById("travellerHistoryId").style.display= 'block';
+            document.getElementById("lblTravellerHistoryIdPK").innerHTML="Please provide Travelled Iteration Count for which details is applicable";
+          }
+          else if(selectedValue=="8"){
+            document.getElementById("travellerHistoryId").style.display= 'block';
+            document.getElementById("lblTravellerHistoryIdPK").innerHTML="Please provide Covid Result Id";
+          }
+          else if(selectedValue=="9"){
+            document.getElementById("travellerHistoryId").style.display= 'block';
+            document.getElementById("lblTravellerHistoryIdPK").innerHTML="Please provide Vaccination Id";
+          }
+          
+
+          
+  		
+  	});
+});
+</script>
+    <%- include('./partials/footer.ejs')%>
+</body>
+</html>   

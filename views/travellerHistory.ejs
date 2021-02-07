@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <title>History Details</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="trvlrHistoryBasic" class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded py-4">
+                       <h2 class="py-3">Traveller History Details</h2>
+                       <br>                      
+                       <form method="POST" action="addTravellerHistory" enctype="multipart/form-data">                                                     
+                           <div class="row">
+                                    <div class="form-group col-md-4 mb-4">
+                                            <label for="optTypeTravel">Type of Travel</label>
+                                    </div>                                                         
+                                    <div class="form-group col-md-6 mb-6">
+                                        <label class="form-check-label mx-5">
+                                        <input type="radio" class="form-check-input" name="optTypeTravel">Domestic
+                                        </label>
+                                        <label class="form-check-label mx-5">
+                                            <input type="radio" class="form-check-input" name="optTypeTravel">International
+                                            </label>
+                                    </div>
+                                                         
+                            </div>                            
+                            <div class="row">
+                                <div class="form-group col-md-4 mb-4">
+                                        <label for="optModeTravel">Mode of Travel</label>
+                                </div>                                                         
+                                <div class="form-group col-md-6 mb-6">
+                                    <label class="form-check-label  mx-5">
+                                         <input type="radio" class="form-check-input" name="optModeTravel">Air
+                                    </label>
+                                    <label class="form-check-label  mx-4">
+                                        <input type="radio" class="form-check-input" name="optModeTravel">Train
+                                     </label>
+                                    <label class="form-check-label mx-4">
+                                        <input type="radio" class="form-check-input" name="optModeTravel">Bus
+                                    </label>
+                                    <label class="form-check-label  mx-4">
+                                        <input type="radio" class="form-check-input" name="optModeTravel">Personal
+                                    </label>
+                                </div>               
+                        </div> 
+                           <div class="row">                            
+                                <div class="form-group col-md-6 mb-6">
+                                    <label for="txtTravelDateFrom">Travel Date From</label>
+                                    <input type="date" class="form-control" name="txtTravelDateFrom">
+                                 </div>            
+                                <div class="form-group col-md-6 mb-6">
+                                    <label for="txtTravelDateTo">Travel Date To</label>
+                                    <input type="date" class="form-control" name="txtTravelDateTo">
+                                </div>                              
+                           </div>  
+
+                           <div class="row">
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtOriginCity">Origin City</label>
+                                <input type="text" class="form-control" name="txtOriginCity" placeholder="Enter Your Origin City">
+                            </div>
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtDestinationCity">Destination City</label>
+                                <input type="text" class="form-control" name="txtDestinationCity" placeholder="Enter Your Destination City" rows="3">
+                             </div>
+                          </div>
+                          <div class="row">
+                                 <div class="form-check col-md-6 mb-6">
+                                     <div class="my-2">  
+                                         <label class="form-check-label"> COVID Test Required</label>
+                                    </div>
+ 
+
+                                    <label class="form-check-label mx-5">
+                                        <input type="radio" class="form-check-input" name="rdbtnCovidTestReqd">Yes
+                                        </label>
+
+                                        <label class="form-check-label mx-5">
+                                            <input type="radio" class="form-check-input" name="rdbtnCovidTestReqd">No
+                                            </label>
+                                </div> 
+                                <div class="form-group col-md-6 mb-6">
+                                    <label for="fileTravelTicket">Travel Ticket</label>
+                                    <input type="file" class="form-control" name="fileTravelTicket" placeholder="Please Upload your Travel Ticket if applicable*">
+                                </div> 
+                        </div>      
+                      
+                        <div class="row">                            
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtTravellerId">Traveller Identity(Account Address)</label>
+                                <input type="text" class="form-control" name="txtTravellerId" placeholder="Please input traveller address">
+                             </div>            
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtTravellerHistoryIdPK">Please provide Travelled Iteration Count for which details is applicable</label>
+                                <input type="number" class="form-control" name="txtTravellerHistoryIdPK" min="0" max="3">
+                            </div>                              
+                       </div> 
+
+                      
+                           <div class="row mb-4">
+                            <div class="col-md-5 mb-5 text-left">
+                                <a href="/traveller/travellerModule" class="btn btn-primary" title="Click on the back button">Back</a>
+                                <!-- <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Back</button>  -->
+                            </div>    
+                            <div class="col-md-5 mb-5 text-right">  
+                               <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Submit</button> 
+                           </div>           
+                       </div>         
+                       </form>            
+            </div> 
+       </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>

@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Traveller</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="trvlrBasic" class="tabcontent py-3" style="display: block;">
+                        <div class="col-md-10 mb-10 border rounded">
+                       <h2 class="py-3">Traveller Basic Details</h2>                       
+                       <br>                               
+                           <div class="row">
+                               <div class="form-group col-md-6 mb-6"> 
+                                   <label for="tbxFName">First Name</label>
+                                   <label readonly class="form-control"><%=firstName %></label>
+                                </div>
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="tbxSName">Second Name</label>                               
+                                   <label readonly class="form-control"><%=lastName %></label>
+                               </div>
+                           </div>
+                           <div class="row">
+                               <div class="form-group col-md-3 mb-3">
+                                   <label for="tbxDob">Date Of Birth</label>       
+                                   <label readonly class="form-control"><%=dob %></label>                          
+                               </div>
+                               <div class="form-group col-md-3 mb-3">
+                                   <label for="tbxAge">Age</label><br>
+                                   <label readonly class="form-control"><%=age %></label>                                 
+                               </div>
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="selectBloodGrp">Blood Group</label>
+                                   <label readonly class="form-control"><%=bloodGroup %></label>                               
+                               </div>
+                           </div>   
+                         
+                <div class="row mb-4">
+                            <div class="col-md-5 mb-5 text-right">
+                                <a href="/airportAuth/airportAuthorityDetails" class="btn btn-primary" title="Click on the back button">Back</a>
+                                <!-- <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Back</button>  -->
+                            </div>    
+                            <div class="col-md-5 mb-5 text-right">
+                                    <%if(typeof travellerId!='undefined' && typeof travellerBasicDetails!='undefined'){%>
+                                    
+                                                <a href="/airportAuth/get02TravellerDetails/<%=travellerId%>/<%=travellerBasicDetails%>"  class="btn btn-primary" title="Click on the next button">Next</a>
+                                        
+                                    <%} %>
+                            </div>    
+                </div>         
+                         
+          </div> 
+       </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>

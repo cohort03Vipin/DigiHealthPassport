@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Traveller</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+        <div class="container mb-5">
+            <h2 class="py-3 text-center">Congratulations</h2>
+            <div class="col-md-10 mb-10 border rounded">
+            <div class="row-mb-5">               
+                    <div class="alert alert-success" role="alert">
+                                  
+                        <h4 class="alert-heading">Data for <span class="font-weight-bold" style="color:#2d315c"><%=PageTitle%></span> is saved in blockchain!</h4>
+                        <%if(typeof TravellerIdentity!='undefined'){%>
+                           Identity of Traveller is: <span class="font-weight-bold" style="color:#2d315c; font-style: italic;"> <%=TravellerIdentity%>  </span>
+                        <%}%>  
+                        <hr>
+                        <p class="mb-0">Block-hash is <%=BlockHash%></p>
+                        <br>
+                        
+                        <%if(typeof BackButton!='undefined'){%>
+                        <div class="row">
+                                 <div class="text-right">
+                                           <a href="<%=BackButton%>" class="btn btn-primary"   title="Click on Back Button">Back</a>
+                                 </div>
+                        </div>
+                        <%}%>  
+                    </div>                
+            </div>
+        </div>  
+        </div>
+        
+ 
+    </div>    
+     
+    <!-- </div>   -->
+      <%- include('./partials/footer.ejs')%>
+    
+
+     </body>
+   </html>

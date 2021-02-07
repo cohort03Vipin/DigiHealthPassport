@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>Traveller</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="trvlrBasic" class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded">
+                       <h2 class="py-3">Traveller Basic Details</h2>
+                       <br>
+                       <form method="POST" action="addBasicDetails">                           
+                           <div class="row">
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="tbxFName">First Name</label>
+                                   <input type="text" required class="form-control" id="tbxFName" name="tbxFName" placeholder="Enter Your First Name">
+                                </div>
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="tbxSName">Second Name</label>
+                                   <input type="text" required class="form-control" id="tbxSName" name="tbxSName" placeholder="Enter Your Second Name">
+                               </div>
+                           </div>
+                           <div class="row">
+                               <div class="form-group col-md-3 mb-3">
+                                   <label for="tbxDob">Date Of Birth</label>
+                                   <input type="date" required class="form-control"  name="tbxDob" placeholder="Enter Your Date Of Birth">
+                               </div>
+                               <div class="form-group col-md-3 mb-3">
+                                   <label for="tbxAge">Age</label>
+                                   <input type="number" min="0" max="99" required class="form-control"  name="tbxAge" placeholder="Enter Your Age">
+                               </div>
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="selectBloodGrp">Blood Group</label>
+                                    <select class="form-select form-control" name="selectBloodGrp" aria-label="Please Select Blood Group">
+                                       <option selected>Please Select</option>
+                                       <option value="A+">A+</option>
+                                       <option value="O+">O+</option>
+                                       <option value="B+">B+</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="A-">A-</option>
+                                       <option value="O-">O-</option>
+                                       <option value="B-">B-</option>
+                                        <option value="AB-">AB-</option>
+                                     </select>
+                               </div>
+                           </div>  
+
+                           <div class="row">
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtAreaPersentAddress">Present Address</label>
+                                <textarea class="form-control" name="txtAreaPersentAddress" placeholder="Enter Your Present Address" rows="3"></textarea>
+                            </div>
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtAreaPermanentAddress">Permanent Address</label>
+                                <textarea class="form-control" name="txtAreaPermanentAddress" placeholder="Enter Your Permanent Address" rows="3"></textarea>
+                             </div>
+                          </div>
+                        
+                         <div class="form-group">
+                            <label for="tbxState">State</label>
+                            <input type="text" class="form-control" name="tbxState" placeholder="Enter Your State">
+                        </div>
+                        <div class="form-group">
+                            <label for="tbxCity">City</label>
+                            <input type="text" class="form-control" name="tbxCity" placeholder="Enter Your City">
+                        </div>                     
+                        <div class="form-group">
+                            <label for="tbxPincode">Pincode</label>
+                            <input type="text" class="form-control" name="tbxPincode" placeholder="Enter Your Area Pincode">
+                        </div> 
+
+                           <div class="row mb-4">
+                            <div class="col-md-5 mb-5 text-left">
+                                <a href="/traveller/travellerModule" class="btn btn-primary" title="Click on the back button">Back</a>
+                                <!-- <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Back</button>  -->
+                            </div>    
+                            <div class="col-md-5 mb-5 text-right">                           
+                               <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Submit</button> 
+                           </div>                               
+                       </div>         
+                       </form>            
+            </div> 
+       </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>   

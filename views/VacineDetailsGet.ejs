@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Traveller</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="VacineInfo" class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded">
+                       <h2 class="py-3">Vaccine Details</h2>
+                       <br>
+                                               
+                           <div class="row">
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="tbxVaccineName">Vaccine Name</label><br><br>
+                                   <%=vacineName%>
+                                </div>
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="tbxVaccineBrand">Vacine Brand</label><br><br>
+                                   <%=VacineBrand%>
+                               </div>
+                           </div>
+                           <div class="row">
+                                <div class="form-group col-md-12 mb-6">
+                                    <label for="tbxVaccineDate">Traveller Vaccination Info</label><br><br>
+                                    <textarea readonly class="form-control" rows="3"><%=travellerVacinationInfo%></textarea>
+                                   
+                                </div>
+                           </div>                             
+                           <div class="row">
+                            <div class="form-group col-md-12 mb-12">
+                                <label for="txtCoolingInfo">Storage Details(Cooling Info)</label><br><br>
+                                <textarea readonly class="form-control" rows="3"><%=coolingInfo%></textarea>
+                                
+                            </div>
+                            
+                          </div>
+                       <div class="row">
+                        <div class="form-group col-md-12 mb-2">
+                            <label>Vaccine Results</label><br><br>
+                            <textarea readonly class="form-control" rows="3"><%=travellerVacineResult%></textarea>
+                     
+                            
+                         </div></div>
+                         <div class="row">
+                         <div class="form-group col-md-12 mb-2">
+                            <label for="tbxMedicleConditions">Medicle Conditions</label><br><br>
+                            <textarea readonly class="form-control" rows="3"><%=travellerVacineResult%></textarea>
+                           
+                         </div>
+                       </div>
+
+
+                           <div class="row mb-4">                            
+                               <div class="col-md-5 mb-10 text-right">
+                                    <a href="/airportAuth/airportAuthorityDetails" class="btn btn-primary" title="Click on the back button">Back</a>
+                                
+                                </div>                             
+                        </div>         
+                               
+            </div> 
+       </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>   

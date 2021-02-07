@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Traveller</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="trvlrBasic" class="tabcontent py-3" style="display: block;">
+                        <div class="col-md-10 mb-10 border rounded">
+                       <h2 class="py-3">Traveller Basic Details</h2>
+                       
+                       <br>
+                         <%if(travellerBasicDetails=="1") {%>               
+                           <div class="row">
+                               <div class="form-group col-md-6 mb-6"> 
+                                   <label for="tbxFName">First Name</label>
+                                   <label readonly class="form-control"><%=firstName %></label>
+                                </div>
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="tbxSName">Second Name</label>                               
+                                   <label readonly class="form-control"><%=lastName %></label>
+                               </div>
+                           </div>
+                           <div class="row">
+                               <div class="form-group col-md-3 mb-3">
+                                   <label for="tbxDob">Date Of Birth</label>       
+                                   <label readonly class="form-control"><%=dob %></label>                          
+                               </div>
+                               <div class="form-group col-md-3 mb-3">
+                                   <label for="tbxAge">Age</label><br>
+                                   <label readonly class="form-control"><%=age %></label>                                 
+                               </div>
+                               <div class="form-group col-md-6 mb-6">
+                                   <label for="selectBloodGrp">Blood Group</label>
+                                   <label readonly class="form-control"><%=bloodGroup %></label>                               
+                               </div>
+                           </div>   
+                           <%} else if(travellerBasicDetails=="2") {%>
+                            <div class="row">
+                                <div class="form-group col-md-6 mb-6">
+                                    <label for="txtAreaPersentAddress">Present Address</label>
+                                    <textarea readonly rows=4 class="form-control"><%=presentAddress %></textarea>                                   
+                                </div>
+                                <div class="form-group col-md-6 mb-6">
+                                    <label for="txtAreaPermanentAddress">Permanent Address</label>  
+                                    <textarea readonly class="form-control" rows=4><%=permanentAddress %></textarea>                                 
+                                 </div>
+                              </div>
+                            
+                            
+                            <div class="form-group">
+                                <label for="tbxCity">City</label>
+                                <label readonly class="form-control"><%=city %></label>   
+                            </div>                     
+                            <div class="form-group">
+                                <label for="tbxPincode">Pincode</label>
+                                <label readonly class="form-control"><%=pinCode %></label>   
+                            </div>
+                            <div class="form-group">
+                                <label for="tbxState">State</label>
+                                <label readonly class="form-control"><%=state %></label>                         
+                            </div>
+                            <%}%>
+                           <div class="row mb-4">
+                           <div class="col-md-10 mb-10 text-right">
+                               <button type="submit" class="btn btn-primary">back</button> 
+                           </div>           
+                       </div>         
+                         
+          </div> 
+       </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>

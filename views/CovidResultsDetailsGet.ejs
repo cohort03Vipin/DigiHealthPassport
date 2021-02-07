@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>History Details</title>
+        <!-- Bootstrap core CSS -->        
+          
+        <%- include('./partials/headscripts.ejs')%>  
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+        <div id="covidResultsDetails" class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded py-2">
+                    <h2 class="py-3">Covid Test Lab</h2>                                         
+                                                                        
+                        <div class="row">
+                            <div class="form-check col-md-12 mb-2">
+                                <div class="mb-2">  
+                                    <label class="form-check-label">COVID Test Required</label>
+                                    <%=hospitalizedduetoCOVID%>
+                            </div>
+                                                            
+                        </div> 
+                        </div>
+                        <div id="rowCovid" class="row mb-4">
+                                    <div class="form-group col-md-6">      
+                                        <div class="mb-2">                                      
+                                                <label class="form-check-label">Covid Test Type</label>
+                                                <%=covidTestType%>
+                                        </div>
+                                                                
+                                    </div>
+                                    <div class="form-check col-md-6">
+                                        <div class="mb-2"> 
+                                            <label for="tbxCovidTestDate">Covid Test Date</label>
+                                            <%=covidTestDate%>
+                                        </div>                                            
+                                    </div>
+                        </div>
+                        <div id="rowLab" class="row">                          
+                            <div class="form-group col-md-12 mb-6">         
+                                <div class="mb-2">                        
+                                    <label for="txtLabName">Lab Name and Address</label> <%=labNameAddress%>
+                                </div>   
+                            </div>   
+                        </div>
+                        <%if(typeof testOutcome!='undefined'){%>
+                        <div class="row mb-2"> 
+                            <div class="form-group col-md-12 mb-6">
+                                <div class="mb-2"> 
+                                    <label for="txtCovidTestOutcome">COVID Test Outcome</label> 
+                                    <%=testOutcome%>
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <%}%>
+                                    
+                                    <div id="rowUploadCovidReport" class="row mb-6">
+                                            <div class="form-group col-md-10">
+                                                <label for="uploadPassport">Please click on the below link</label><br>                             
+                                                <a  href="https://ipfs.io/ipfs/<%=uploadedReport%>"  target="_blank" ><%=uploadedReport%></a> 
+                                            </div>
+                                    </div> 
+                                                                
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-5 mb-5 text-right">
+                                    <a href="/airportAuth/airportAuthorityDetails" class="btn btn-primary" title="Click on the back button">Back</a>
+                                    <!-- <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Back</button>  -->
+                                </div>          
+                            </div>    
+
+            </div>                            
+        </div> 
+            
+    </div>  
+       <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>

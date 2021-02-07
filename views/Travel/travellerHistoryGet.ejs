@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>History Details</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div id="trvlrHistoryBasic" class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded py-4">
+                       <h2 class="py-3">Traveller History Details</h2>
+                       <br>                      
+                                                                           
+                           <div class="row">
+                                    <div class="form-group col-md-4 mb-4">
+                                            <label for="optTypeTravel">Type of Travel & Mode</label>
+                                    </div>                                                         
+                                    <div class="form-group col-md-6 mb-6">
+                                        <label class="form-check-label mx-5"> <%=travelTypeMode%>
+                                        </label>
+                                    </div>
+                                                         
+                            </div>                            
+                           
+                           <div class="row">                            
+                                <div class="form-group col-md-6 mb-6">
+                                    <label for="txtTravelDateFrom">Travel Date From</label>
+                                    <input readonly type="text" class="form-control" value="<%=fromDate%>" name="txtTravelDateFrom">
+                                 </div>            
+                                <div class="form-group col-md-6 mb-6">
+                                    <label for="txtTravelDateTo">Travel Date To</label>
+                                    <input readonly type="date" class="form-control" value="<%=toDate%>" name="txtTravelDateTo">"
+                                </div>                              
+                           </div>  
+
+                           <div class="row">
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtOriginCity">Origin City</label>
+                                <input type="text" readonly class="form-control" value="<%=originCity%>" name="txtOriginCity" >
+                            </div>
+                            <div class="form-group col-md-6 mb-6">
+                                <label for="txtDestinationCity">Destination City</label>
+                                <input type="text" readonly class="form-control" name="txtDestinationCity" placeholder="Enter Your Destination City" value="<%=destinationCity%>" rows="3"> 
+                             </div>
+                          </div>
+                          <div class="row">
+                                 
+                                <div class="form-group col-md-12 mb-12">
+
+                                         <label for="fileTravelTicket">Please click on the below link to view Travel Ticket</label>
+                                    </div>
+                                        <a  href="https://ipfs.io/ipfs/<%=travelTicket%>" name="fileTravelTicket"  target="_blank" ><%=travelTicket%></a>   
+                                        
+                                    </div>
+                                   
+                                 
+                                </div> 
+                        </div>      
+                      
+                       
+                      
+                           <div class="row mb-4">
+                           <div class="col-md-10 mb-10 text-right">
+                               <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Back</button> 
+                           </div>           
+                       </div>         
+                                
+            </div> 
+       </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>

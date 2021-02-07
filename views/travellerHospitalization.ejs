@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>History Details</title>
+        <!-- Bootstrap core CSS -->        
+        <%- include('./partials/headscripts.ejs')%>        
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+
+        <div class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded py-4">
+                       <h2 class="py-3">Traveller Covid Hospitalization Details</h2>
+                       <br>                      
+                       <form method="POST" action="addHospitalization" enctype="multipart/form-data">                                                      
+                        <div class="row">
+                            <div class="form-check col-md-6 mb-6">
+                                <div class="my-2">  
+                                    <label class="form-check-label">Have you been hospitalized due to COVID?</label>
+                               </div>
+                               <label class="form-check-label mx-5">
+                                   <input type="radio" value="true" class="form-check-input" name="rdbtnHospitalizationReqd">Yes
+                                   </label>
+                                   <label class="form-check-label mx-5">
+                                       <input type="radio" value="false" class="form-check-input" name="rdbtnHospitalizationReqd">No
+                                    </label>
+                           </div>  
+                           <div class="form-group col-md-6 mb-6">
+                            <label for="txtHospitalName">Name of Hospital</label>
+                            <input type="text" class="form-control" name="txtHospitalName" placeholder="Please Enter Hopital Name"/>
+                        </div>                         
+                        </div>
+                      
+                    <div class="row">
+                        <div class="form-group col-md-6 mb-6">
+                            <label for="tbxHospitalizedFrom">Hospitalised From</label>
+                            <input type="date" class="form-control" name="tbxHospitalizedFrom">
+                         </div>
+    
+                        <div class="form-group col-md-6 mb-6">
+                            <label for="tbxHospitalizedTo">Hospitalised To</label>
+                            <input type="date" class="form-control" name="tbxHospitalizedTo">
+                        </div>
+                    </div>
+                    <div class="row">                       
+                        
+                         <div class="form-group col-md-6 mb-6">
+                            <label for="txtAddress">Hospital Address</label>
+                            <textarea class="form-control" name="txtAddress" placeholder="Please provide Hospital Address" rows="3"></textarea>
+                         </div>
+                         <div class="form-group col-md-6 mb-6">
+                            <label for="txtDiagnostics">Diagnostics Tests Performed</label>
+                            <textarea class="form-control" name="txtDiagnostics" placeholder="Please provide Diagnostics Tests performed" rows="3"></textarea>
+                         </div>
+                      </div> 
+                
+                    <div class="row">     
+                      <div class="form-group col-md-6 mb-6">
+                            <label for="uploadDischargeSummary">Discharge Summary</label><br> 
+                            <input type="file" class="form-control-file" name="uploadDischargeSummary">     
+                     </div>
+                     <div class="form-group col-md-6 mb-6">
+                        <label for="txtKeyObservations">Key Observations(Patient)</label>
+                        <textarea class="form-control" name="txtKeyObservations" placeholder="Please provide observation details" rows="3"></textarea>
+                     </div>
+                  </div> 
+
+                  <div class="row">     
+                    <div class="form-group col-md-8 mb-8">
+                        
+                      <label for="txtHospitalRemarks">Hospital Remarks</label>
+                      <textarea class="form-control" name="txtHospitalRemarks" placeholder="Please provide hospital remarks" rows="3"></textarea>
+                   </div>
+                </div> 
+
+                  <div class="row">                            
+                    <div class="form-group col-md-12 mb-12">
+                        <label for="txtTravellerId">Traveller Identity(Account Address) *</label>
+                        <input required type="text" class="form-control" name="txtTravellerId" placeholder="Please input traveller address">
+                     </div> 
+                      </div>   
+                        <div class="row">         
+                        <div class="form-group col-md-8 mb-8">
+                            <label for="txtTravellerHistoryIdPK">Please provide Hospitalized Iteration Count(for which details are applicable)*</label>
+                            <input type="number" required  class="form-control" name="txtTravellerHistoryIdPK" min="0" max="1">
+                        </div>                              
+                        </div>  
+                      
+                           <div class="row mb-4">
+                           <div class="col-md-10 mb-10 text-right">
+                               <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Submit</button> 
+                           </div>           
+                       </div>         
+                       </form>            
+            </div> 
+       </div>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>

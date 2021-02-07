@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>All Travellers Details</title>
+        <!-- Bootstrap core CSS -->        
+          
+        <%- include('./partials/headscripts.ejs')%>  
+    </head>
+  <body>
+    <%- include('./partials/navTraveller.ejs')%>
+    <div class="container py-4">
+        <br><br>
+        <div id="covidResultsDetails" class="tabcontent py-3" style="display: block;">
+            <div class="col-md-10 mb-10 border rounded py-2">
+                    <h2 class="py-3">All Travellers</h2>                                         
+                                                                        
+                        <div class="row">
+                            <div class="form-check col-md-12 mb-2">
+                                <div class="mb-2">  
+                                    <ul>
+                                        <% travellerList.forEach(traveller=> { %>
+                                            <li> <%= traveller[0]%></li>
+                                       
+                                         <% }) %> 
+                                    </ul>
+                            </div>
+                                                            
+                        </div> 
+                        </div>
+                              
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-5 mb-5 text-right">
+                                    <a href="/airportAuth/airportAuthorityDetails" class="btn btn-primary" title="Click on the back button">Back</a>
+                                    <!-- <button type="submit" class="btn btn-primary" id="btnSubmitBasic">Back</button>  -->
+                                </div>          
+                            </div>    
+
+            </div>                            
+        </div> 
+            
+    </div>  
+       <%- include('./partials/footer.ejs')%>
+           </body>
+  </html>
