@@ -1,0 +1,202 @@
+pragma solidity >= 0.4.14 <= 0.7.6;  
+//pragma experimental ABIEncoderV2;
+import "TravellerModule_V1.sol";
+
+contract HealthCare {
+    
+        TravellerModule travelModule=TravellerModule(0x2Ce6AfBB19Dc2Ee386aBFAa0680CDD212919461F);
+
+        
+        mapping(address=>mapping(uint=>HospitalizationHistory)) hospHistoryMap;
+         struct HospitalizationHistory{
+            
+            bool hospitalizedduetoCOVID;
+            //Applicable if hospitalizedduetoCOVID
+            string hospitalizeddocument;
+            string hospitalName;
+            string hospitalAddress;	
+            string fromDate;
+            string toDate;
+    
+            bool isHospitalized;//if false cant put remarks;
+            string remarks;	
+            string dischargeSummary; //Hash Value of document	
+            string keyObservations;	
+            string diagnosticsTestsPerformed;
+            uint hospHistoryId;
+        }
+        struct OtherLabResultsHistory{
+              string diagnosticTypeName;    
+              string testResults;
+              string briefDiagnosis;
+              uint labResultId;
+        }
+        mapping(address=>mapping(uint=>CovidResults)) CovidResultsMap;
+        struct CovidResults{
+            bool iscovid;
+            string covidTestType;
+            string covidTestDate;
+            string labName;
+            string labAddress;
+            string testOutcome; 
+            string uploadedReport;
+            uint covidResultId;
+        }
+        mapping(address=>mapping(uint=>TravellerVacine)) travellerVacineMap;
+        struct TravellerVacine{
+            //Related to Vaccine
+            uint vacineId;
+            string vacineName;
+            string VacineBrand;
+            string vacineDate;
+            string nextDosageDate;
+            string coolingInfo;
+            
+            //Related to traveller
+            //address travellerId;
+            string travellerVacineResult;
+            string MedicalConditions;
+
+            }
+       
+        
+       
+        function set05Hospitalization(bool _hospitalizedduetoCOVID, 
+        string memory _hospitalizeddocument, string memory _hospitalName, 
+        string memory _hospitalAddress, string memory _fromDate,string memory _toDate,string memory _remarks,string memory _dischargeSummary,	
+        string memory _keyObservations, string memory _diagnosticsTestsPerformed,
+        address _travellerId,uint _hospHistoryIdPK)  public{
+			    
+			//Validation if any entry for PassportMap does not exist then exit
+			//If not hospitalized then remarks will be empty
+			if(!_hospitalizedduetoCOVID){
+			    _remarks="";
+			    _keyObservations="";
+			    
+			} 
+			
+            hospHistoryMap[_travellerId][_hospHistoryIdPK]=HospitalizationHistory(_hospitalizedduetoCOVID,_hospitalizeddocument,_hospitalName,_hospitalAddress,_fromDate,_toDate,true,
+            _remarks,_dischargeSummary,_keyObservations,_diagnosticsTestsPerformed,_hospHistoryIdPK);
+            
+           // travelModule.PassportMap= address(_travellerId);
+		    //travelModule.PassportMap[address(_travellerId)].hospHistoryList.push(_hospHistoryIdPK);
+		   travelModule.setHospitalizationMap(_travellerId,_hospHistoryIdPK,true );
+            //travelHistoryIds.push(_travellerHistoryIdPK);
+       }
+        
+    
+        function get05HospitalizationDetails(address _travellerId,uint _hospHistoryIdPK) view 
+        public returns(bool, string memory, string memory, string memory, string memory,string memory
+			) {
+		
+			    return(
+			        hospHistoryMap[_travellerId][_hospHistoryIdPK].hospitalizedduetoCOVID,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].hospitalizeddocument,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].hospitalName,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].hospitalAddress,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].fromDate,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].toDate
+                     );
+		}
+     
+      function get05HospitalizationRemarks(address _travellerId,uint _hospHistoryIdPK) view 
+        public returns( string memory, string memory,  string memory, string memory, string memory
+			) {
+			   
+			    return(
+			        hospHistoryMap[_travellerId][_hospHistoryIdPK].remarks,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].dischargeSummary,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].hospitalName,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].keyObservations,
+                    hospHistoryMap[_travellerId][_hospHistoryIdPK].diagnosticsTestsPerformed
+            );
+		}
+     
+    //04.Below methods for OtherLabTestResults Starts Here 
+        //Assuming there might  be n  record against traveller
+        /*
+        mapping(address=>mapping(uint=>OtherLabResultsHistory)) otherLabResultHistoryMap;
+        
+     function set06OtherLabResults(string memory _diagnosticType,    
+          string memory _testResults,string memory _briefDiagnosis,
+          address _travellerId,uint _labResultId) public{
+            
+            otherLabResultHistoryMap[_travellerId][_labResultId]=OtherLabResultsHistory(_diagnosticType,_testResults,_briefDiagnosis,_labResultId);  
+            travelModule.setHospitalizationMap(_travellerId,_labResultId,false );
+            //travelModule.PassportMap[_travellerId].labResultList.push(_labResultId);
+       }
+
+    function get06OtherLabResults(address _travellerId,uint _labResultId) 
+                             view public returns(string memory,string memory,string memory) {      
+        return(   
+            otherLabResultHistoryMap[_travellerId][_labResultId].diagnosticTypeName,
+            otherLabResultHistoryMap[_travellerId][_labResultId].testResults,
+            otherLabResultHistoryMap[_travellerId][_labResultId].briefDiagnosis);
+
+       }
+       */
+       
+           function set07CovidResults(bool _iscovid, string memory _covidTestType,
+            string memory _covidTestDate,string memory _labName,
+            string memory _labAddress,string memory _testOutcome, string memory _uploadedReport,
+             address _travellerId,uint _covidResultId)  public{
+                
+             CovidResultsMap[_travellerId][_covidResultId]=CovidResults(_iscovid,_covidTestType,_covidTestDate,_labName
+             ,_labAddress,_testOutcome,_uploadedReport,_covidResultId);
+             
+           
+         //  uint[] covidTestLabId; if 1 then CovidResult
+		   travelModule.setCovidOrIdVacine(_travellerId,_covidResultId,true );
+        } 
+        
+         function get07CovidResults(address _travellerId,uint _CovidTestResultId) view 
+        public returns( bool,string memory, string memory,  
+        string memory, string memory,  string memory
+			) {
+	
+			   	 string memory labNameAddress=   string(abi.encodePacked( CovidResultsMap[_travellerId][_CovidTestResultId].labName,"  " ,CovidResultsMap[_travellerId][_CovidTestResultId].labAddress));
+			
+			    return(
+			        CovidResultsMap[_travellerId][_CovidTestResultId].iscovid,
+			        CovidResultsMap[_travellerId][_CovidTestResultId].covidTestType,
+                    CovidResultsMap[_travellerId][_CovidTestResultId].covidTestDate,
+                    labNameAddress,
+                     CovidResultsMap[_travellerId][_CovidTestResultId].testOutcome,
+                      CovidResultsMap[_travellerId][_CovidTestResultId].uploadedReport 
+            );
+		}
+        
+        //
+            function set07TravellerVacine(uint _vacineId,
+            string memory  _vacineName,string memory  _vacineBrand,
+            string memory  _vacineDate,string memory  _nextDosageDate,string memory  _coolingInfo,        
+          
+            address _travellerId, string memory  _travellerVacineResult,
+            string memory  _medicalConditions) public{
+                
+             travellerVacineMap[_travellerId][_vacineId]=TravellerVacine(_vacineId,_vacineName,_vacineBrand,_vacineDate
+             ,_nextDosageDate,_coolingInfo,_travellerVacineResult, _medicalConditions);
+             
+           
+         //  uint[] covidTestLabId; if false then vacineResult
+		  travelModule.setCovidOrIdVacine(_travellerId,_vacineId,false );
+        } 
+        
+    function get07TravellerVacine(address _travellerId,uint _vacineId) view 
+        public returns(string memory, string memory,  string memory, string memory,string memory, string memory
+			) {
+	
+			   	 string memory travellerVacinationInfo=   string(abi.encodePacked( travellerVacineMap[_travellerId][_vacineId].vacineDate," Next Dosage Date :: " ,travellerVacineMap[_travellerId][_vacineId].nextDosageDate));
+			
+			    return(
+			        travellerVacineMap[_travellerId][_vacineId].vacineName,
+			        travellerVacineMap[_travellerId][_vacineId].VacineBrand,
+                    travellerVacinationInfo, 
+                    travellerVacineMap[_travellerId][_vacineId].coolingInfo,
+                    travellerVacineMap[_travellerId][_vacineId].travellerVacineResult,
+                    travellerVacineMap[_travellerId][_vacineId].MedicalConditions
+                    
+            );
+		}
+        
+}

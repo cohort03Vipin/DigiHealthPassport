@@ -1,0 +1,313 @@
+pragma solidity >= 0.4.14 <= 0.7.6;  
+pragma experimental ABIEncoderV2;
+
+
+contract StructsForTraveller{
+    
+     struct TravellerDetails{
+        //Basic Details
+        string	firstName;
+        string	lastName;
+        string	dob	;
+        uint	age;
+        string	bloodGroup;
+       
+        //Address
+        string	presentAddress;
+        string	permanentAddress;
+        string	city;
+        uint	pinCode;
+        string	state;
+        //used For Validation
+        // 1 for Basic & Address 
+        //2 for PassportDetails Update only 
+        
+        //3 for TravellerHistory
+        
+        //Hospitilization Module
+        //4 for Hospitilization
+        //5 covidTestLabId
+        //6 Vaccination
+        
+        
+        uint stage;
+     }
+     
+     address[] travellerIds;
+    
+     struct PassportDetails{
+         //Passport
+        string	passportNo;
+        string	placeofBirth;
+        string	passportValidatyFrom;
+        string	passportValidatyTo;
+        string	nationality;
+        string	issuingAuthority;
+        string	passportCopy;
+       
+        bool initialized;
+        //For 1-n mapping
+        uint[]  travelHistoryList;// will point to TravelHistory
+        //capture all the HospitalizationHistory details against user
+       uint[] hospHistoryList;
+       //capture all the LabResultDetails details against user
+       uint[] labResultList;
+       
+       //List Of Contacted Person
+       uint[] contactHistoryList;
+       
+       //List of upcoming International flightDetails
+       uint[] UpComingIntTravelInfoList;
+        uint[] covidTestLabId;
+        uint[] vacineResultId;
+     }
+    
+     struct TravelHistory{
+            //BasicTravelHistory
+            string travelType;
+            string travelMode;
+            string fromDate;
+            string toDate;
+            string originCity;
+            string destinationCity;
+            string travelTicket;
+            //IfTraveler having symptomps of Covid
+            bool   isCovidTestRequired;
+            string quarantineType;
+            string quarantineDuration;
+            string placeofStay;
+            string addressOfStay;
+            string anyCovidSymtpom;
+            
+            uint travelHistoryId;
+            //if initialized then Hospitlization could take place
+            bool initialized;
+       }
+    //Below struct for TravelHistory Ends Here
+    
+     struct ContactHistory{
+        //Has anyone in your close contact tested positive in the last 3 weeks
+        bool anyOneTestedPositive;
+        string relationshipType;
+        string residingWithYou;
+        string fullName;
+        uint age;
+        string addressOfContact; 
+        string dateOfCOVIDTestResults;
+        
+        uint contactId;
+    }
+}
+
+contract TravellerModule is StructsForTraveller {
+  
+     //01.A Below methods for TravellerDetails Starts Here 
+    mapping(address=>TravellerDetails) TravellerMap ;
+  
+    function set01TravellerBasicDetails(string memory _firstName, string memory _lastName,string memory _dob,
+       uint	_age,string memory _bloodGroup,string memory _presentAddress,string memory _permanentAddress,
+       string memory _city, uint _pinCode, string memory _state) public{
+           //Note:Once data is saving then setting initialized to true
+           uint _stage=1;
+           TravellerMap[msg.sender]=TravellerDetails(_firstName, _lastName,_dob,_age,_bloodGroup,_presentAddress, _permanentAddress,_city,_pinCode,_state,_stage);
+           
+           travellerIds.push(msg.sender);
+   }
+    
+    
+    
+    
+   function get01TravellerBasicDetails(address _address) public view 
+    returns(string memory,string memory,string memory,uint	,string memory)
+            {
+                
+                     return(TravellerMap[_address].firstName, 
+                     TravellerMap[_address].lastName,
+                     TravellerMap[_address].dob,TravellerMap[_address].age,
+                     TravellerMap[_address].bloodGroup);
+            }
+    function get01TravellerAddress(address _address) public view 
+         returns(string memory, string memory,string memory, uint, string memory)
+        {
+            
+         return(TravellerMap[_address].presentAddress,
+                TravellerMap[_address].permanentAddress,
+                TravellerMap[_address].city,
+                TravellerMap[_address].pinCode, 
+                TravellerMap[_address].state);
+        }
+
+ 
+        //01.B Below methods for PassportDetails Starts Here
+        mapping(address=>PassportDetails) public   PassportMap;
+    function get02TravellerPassportDetails(address _address) public view 
+         returns(string memory,string memory, string memory,string memory,string memory, string memory, string memory)
+        {
+            //Assuming _address is equal to msg.sender
+           
+                return(PassportMap[_address].passportNo,
+               PassportMap[_address].placeofBirth,
+               PassportMap[_address].passportValidatyFrom,
+               PassportMap[_address].passportValidatyTo,
+               PassportMap[_address].nationality,
+               PassportMap[_address].issuingAuthority,
+               PassportMap[_address].passportCopy );
+        }
+          modifier ifValidTraveller(){
+        require(TravellerMap[msg.sender].stage!=0 ,'Traveller Basic Details are empty. Please fill basic details first.');
+        _;
+  }
+         function set02TravellerPassportDetails(string memory _passportNo, 
+       string memory _placeofBirth, string memory _passportValidatyFrom,string memory _passportValidatyTo
+       ,string memory _nationality, string memory _issuingAuthority, string memory _passportCopy) ifValidTraveller public{
+           
+       /*Validate Whether the basic details are entered or not*/
+                uint _stage=2;
+       PassportMap[msg.sender].passportNo= _passportNo;
+       PassportMap[msg.sender].placeofBirth= _placeofBirth;
+       PassportMap[msg.sender].passportValidatyFrom= _passportValidatyFrom;
+       PassportMap[msg.sender].passportValidatyTo= _passportValidatyTo;
+       PassportMap[msg.sender].nationality= _nationality;
+       PassportMap[msg.sender].issuingAuthority= _issuingAuthority;
+       PassportMap[msg.sender].passportCopy= _passportCopy;
+       PassportMap[msg.sender].initialized=true;
+       TravellerMap[msg.sender].stage= _stage;
+   }
+
+  modifier ifValidPassport(){
+      require(TravellerMap[msg.sender].stage!=0 && TravellerMap[msg.sender].stage<2,'Invalid details');
+       require((!PassportMap[msg.sender].initialized) ,'Passport Details are not entered. Please provide passport details.');
+       _;
+  }
+  
+    mapping(address=>mapping(uint=>TravelHistory)) TravelHistoryMap;
+      // uint[] travelHistoryIds;
+     function set03TravelHistoryBasicDetails(string memory _travelType,string memory _travelMode,
+            string memory _fromDate, string memory _toDate,string memory _originCity,
+            string memory _destinationCity, string memory _travelTicket,bool _isCovidTestRequired,
+            address _travellerId, uint _travellerHistoryIdPK) ifValidPassport public{
+            /*Validate Whether the Passport details are entered or not*/  
+          
+          uint _stage=3;
+           
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].travelType=_travelType;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].travelMode=_travelMode;   
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].fromDate=_fromDate;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].toDate=_toDate;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].originCity=_originCity;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].destinationCity=_destinationCity;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].travelTicket=_travelTicket;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].isCovidTestRequired=_isCovidTestRequired;
+            
+            TravellerMap[msg.sender].stage= _stage;
+            //Pushing the travelerHistoryIdPk to PassportDetails
+            //if value already addede in travelHistoryList then skip
+            PassportMap[_travellerId].travelHistoryList.push(_travellerHistoryIdPK);
+            //travelHistoryIds.push(_travellerHistoryIdPK);
+       }
+       
+       function get03TravelHistoryBasicDetails(address _travellerId,uint _travellerHistoryIdPK)  public ifValidPassport view returns(
+            string memory, string memory,string memory,
+            string memory,string memory,string memory
+			) {
+			 string memory travelTypeMode=   string(abi.encodePacked( TravelHistoryMap[_travellerId][_travellerHistoryIdPK].travelType,"  " ,TravelHistoryMap[_travellerId][_travellerHistoryIdPK].travelMode));
+			 return(
+                    travelTypeMode,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].fromDate,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].toDate,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].originCity,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].destinationCity,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].travelTicket
+            );
+		}
+	
+	 function set04TravelHistoryBasicDetails(bool _isCovidTestRequired,string memory _quarantineType,string memory _quarantineDuration, 
+     string memory _placeofStay,string memory _addressOfStay,string memory _anyCovidSymtpom,
+            address _travellerId, uint _travellerHistoryIdPK) ifValidPassport public{
+           //Checking existing validation whether the Passport details are there
+          
+            //Here not inserting stage since inserted in set03TravelHistoryBasicDetails
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].isCovidTestRequired=_isCovidTestRequired;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].quarantineType=_quarantineType;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].quarantineDuration=_quarantineDuration;   
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].placeofStay=_placeofStay;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].addressOfStay=_addressOfStay;
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].anyCovidSymtpom=_anyCovidSymtpom;
+           
+           //To Validate the Next stage mapping
+            TravelHistoryMap[_travellerId][_travellerHistoryIdPK].initialized=true;
+            //Pushing the travelerHistoryIdPk to PassportDetails
+            //if value already addede in travelHistoryList then skip
+            PassportMap[_travellerId].travelHistoryList.push(_travellerHistoryIdPK);
+            //travelHistoryIds.push(_travellerHistoryIdPK);
+       }
+       
+       function get04TravelHistoryBasicDetails(address _travellerId,uint _travellerHistoryIdPK) view public returns(
+            bool , string memory,string memory,
+            string memory,string memory,string memory
+			) {
+			    
+			 return(
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].isCovidTestRequired,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].quarantineType,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].quarantineDuration,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].placeofStay,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].addressOfStay,
+                    TravelHistoryMap[_travellerId][_travellerHistoryIdPK].anyCovidSymtpom
+            );
+		}
+
+			
+       //02.Below struct for TravelHistory Ends Here 
+       
+       function  setHospitalizationMap(address _travellerId, uint choice, bool isHospitalization) external{
+           if(isHospitalization==true)
+           PassportMap[_travellerId].hospHistoryList.push(choice);
+           else if(isHospitalization==false)
+           PassportMap[_travellerId].labResultList.push(choice);
+       }
+       
+        //03.Below methods for TravellerDetails Starts Here 
+        //Assuming there might  be n  record against traveller
+       
+       
+       //CovidTestLabId
+        function  setCovidOrIdVacine(address _travellerId, uint choice, bool isHospitalization) external{
+           if(isHospitalization==true)
+           PassportMap[_travellerId].covidTestLabId.push(choice);
+           else if(isHospitalization==false)
+           PassportMap[_travellerId].vacineResultId.push(choice);
+       }
+       
+     /*
+
+    mapping(address=>mapping(uint=>ContactHistory)) ContactHistoryMap;
+   
+    function set07ContactResult(
+                    bool _anyOneTestedPositive,string memory _relationshipType, 
+                    string memory _residingWithYou,string memory _fullName, uint _age,
+                    string memory _addressOfContact, string memory _dateOfCOVIDTestResults,
+                    address _travellerId,uint _contactId) 
+            public{
+                 ContactHistoryMap[_travellerId][_contactId]= ContactHistory(_anyOneTestedPositive,_relationshipType,_residingWithYou,_fullName,_age,_addressOfContact,_dateOfCOVIDTestResults,_contactId);
+           
+                 PassportMap[_travellerId].contactHistoryList.push(_contactId);
+       }
+    function get07ContactResult(address _travellerId,uint _contactId) view public 
+                            returns(bool,string memory, string memory,string memory, 
+                                    string memory, string memory){
+        
+         return(
+                    ContactHistoryMap[_travellerId][_contactId].anyOneTestedPositive,
+                    ContactHistoryMap[_travellerId][_contactId].relationshipType,
+                    ContactHistoryMap[_travellerId][_contactId].fullName,
+                    ContactHistoryMap[_travellerId][_contactId].residingWithYou,
+                    //ContactHistoryMap[_travellerId][_contactId].age,
+                    ContactHistoryMap[_travellerId][_contactId].addressOfContact,
+                    ContactHistoryMap[_travellerId][_contactId].dateOfCOVIDTestResults
+             );
+        }
+    
+    */
+    
+}
